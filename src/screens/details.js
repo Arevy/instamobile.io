@@ -1,12 +1,19 @@
   
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button  } from 'react-native';
 import { globalStyles } from '../../styles/global';
 
-export default function Details() {
+
+export default function Details({ navigation }) {
+
+  const pressHandler = () => {
+    navigation.goBack();
+  }
+
   return (
     <View style={globalStyles.container}>
-      <Text>ReviewDetails Screen</Text>
+      <Text>Details Screen</Text>
+      {/* <Button title='back to home screen' onPress={pressHandler} /> */}
     </View>
   );
 }
