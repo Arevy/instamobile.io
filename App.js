@@ -1,21 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppLoading } from 'expo';
+import Navigator from './src/navigation/homeStack';
+import * as Font from 'expo-font';
+import {useState} from 'react';
+
+const getFonts = () => Font.loadAsync({
+  'nunito-regular': require('./assets/Roboto-Bold.ttf'),
+  'nunito-bold': require('./assets/Roboto-Bold.ttf'),
+});
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (fontsLoaded) {
+    return (
+      <Navigator />
+    );
+  } else {
+    return (
+      <AppLoading 
+        startAsync={getFonts} 
+        onFinish={() => setFontsLoaded(true)} 
+      />
+    )
+  }
+
+}
