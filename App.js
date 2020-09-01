@@ -1,29 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { AppLoading } from 'expo';
-import Navigator from './src/navigation/homeStack';
-import * as Font from 'expo-font';
-import {useState} from 'react';
-
-const getFonts = () => Font.loadAsync({
-  'nunito-regular': require('./assets/Roboto-Bold.ttf'),
-  'nunito-bold': require('./assets/Roboto-Bold.ttf'),
+import { Text, View } from 'react-native';
+import AppContainer from './src/navigations/AppNavigation';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+import firebaseConfig from './src/data/Fire';
+// Firebase: Initialize
+firebase.initializeApp({
+  apiKey: firebaseConfig.apiKey,
+  authDomain: firebaseConfig.authDomain,
+  databaseURL: firebaseConfig.databaseURL,
+  projectId: firebaseConfig.projectId,
+  storageBucket: firebaseConfig.storageBucket,
+  messagingSenderId: firebaseConfig.messagingSenderId,
 });
+// Firebase: Cloud Firestore
+export const database = firebase.firestore();
 
 export default function App() {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
-
-  if (fontsLoaded) {
-    return (
-      <Navigator />
-    );
-  } else {
-    return (
-      <AppLoading 
-        startAsync={getFonts} 
-        onFinish={() => setFontsLoaded(true)} 
-      />
-    )
-  }
-
+  return (
+     <AppContainer />
+  );
 }
